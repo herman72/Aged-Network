@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="04ed998a-c054-4f63-aa38-b8b36133a733" name="Default Changelist" comment="" />
+    <list default="true" id="04ed998a-c054-4f63-aa38-b8b36133a733" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Main_Aged_Network.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Main_Aged_Network.ipynb" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,16 +69,17 @@
       <workItem from="1543697157782" duration="396000" />
       <workItem from="1543699980855" duration="175000" />
       <workItem from="1543732605555" duration="715000" />
+      <workItem from="1543910335000" duration="17000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1286000" />
+    <option name="totallyTimeSpent" value="1303000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="3200" height="1745" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2569132" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26045015" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
