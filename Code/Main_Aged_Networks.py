@@ -9,40 +9,11 @@ import random as rnd
 import matplotlib.pyplot as plt
 import multiprocessing as mp
 import matplotlib.patches as mpatches
-
+import Fun_Aged_Network as Fun_Aged_Network
 # '''Variable'''
 
 Set_Age = 100
 ensemble = 1
-
-# '''Function''' 
-
-# Calculate A triangle
-def Calculate_Energy(i,j,Energy_Adj):
-
-    Sum = 0
-
-    for k in range(len(Energy_Adj)):
-
-        Sum += Energy_Adj[i,k] * Energy_Adj[j,k]
-
-    return (((-Sum) * Energy_Adj[i,j])/sc.special.comb(len(Energy_Adj),3))
-
-
-
-
-# Calculate total Energy
-def Cal_Ene_Tot(Energy_Adj,Node):
-    Ene_Tot = 0
-
-    for i in range(len(Energy_Adj)):
-        for j in range(len(Energy_Adj)):
-            Ene_Tot += Calculate_Energy(i, j, Energy_Adj)
-
-    return (Ene_Tot) /6
-
-
-
 
 # '''Main Function'''
 
@@ -54,6 +25,8 @@ def Mainfunc(Node,age,iterate,ensemble,std):
     age = age
     iterate = iterate
     Aging = np.ones((Node,Node),dtype=int)
+
+
     # Age_Imshow = []
     # Age_Counter = 1
 
@@ -72,8 +45,18 @@ def Mainfunc(Node,age,iterate,ensemble,std):
         Age_adj = np.zeros((Node, Node), dtype=int)           #Age Matrix
         Eold = 0
 
+        Age_Imshow = []
+
+
+
+
+        Mean_Age = []
+        Std_Age = []
+        Time_Itrate = []
+        
         
         #add Gussian age to nodes
+
         Random_gaussian = sc.stats.halfnorm.rvs(size=(Node,Node),scale=std)
         Age_gaussian = np.triu(Random_gaussian, k=1)
         Age_gaussian = Age_gaussian.round()
@@ -94,8 +77,7 @@ def Mainfunc(Node,age,iterate,ensemble,std):
             for j in range(i,len(Energy_Adj)):
                 Energy_Adj[i, j] = rnd.choice([-1, 1])
                 Energy_Adj[j, i] = Energy_Adj[i, j]
-#                 Age_adj[i, j] =    Age_gaussian[j]                 #rnd.randint(0,age)
-#                 Age_adj[j, i] = Age_adj[i, j]
+
                 Age_adj[j,i] = Age_adj[i,j]
     
 
@@ -106,22 +88,15 @@ def Mainfunc(Node,age,iterate,ensemble,std):
         np.fill_diagonal(Aging, 0)
         Age_adj = Age_adj.round().astype(int)
         
-        # Age_ImshowAge_Imshow.append(Age_adj)
-        # for i in range(len(Energy_Adj)):
-        #     Energy_Adj[i, i] = 0
-        #     Age_adj[i, i] = 0
-        #     Aging[i,i] = 0
 
 
 
-        Eold = Cal_Ene_Tot(Energy_Adj, Node)
+        Eold = Fun_Aged_Network.Cal_Ene_Tot(Energy_Adj, Node)
         Copy_Ene_mat = np.copy(Energy_Adj)
 
 
 
     #def func(Node,iterate,Energy_Adj):
-
-
 
 
 
@@ -136,7 +111,7 @@ def Mainfunc(Node,age,iterate,ensemble,std):
             if Age_network == age:
                 dE = 0
                 for i in range(Node):
-                    for j in range(Node):
+                    for j in range(i,Node):
                         p = 0
                         p = rnd.choice([-1, 1])
 
@@ -149,8 +124,8 @@ def Mainfunc(Node,age,iterate,ensemble,std):
                             Age_adj[i, j] = 0
                             Age_adj[j, i] = 0
 
-                            newE = Calculate_Energy(i, j, Energy_Adj)
-                            oldE = p * Calculate_Energy(i, j, Energy_Adj)
+                            newE = Fun_Aged_Network.Calculate_Energy(i, j, Energy_Adj)
+                            oldE = p * newE #Calculate_Energy(i, j, Energy_Adj)
                             dE += newE - oldE
 
                 Eold += dE
@@ -170,7 +145,7 @@ def Mainfunc(Node,age,iterate,ensemble,std):
             Copy_Ene_mat[j, i] = -Copy_Ene_mat[j, i]
 
             dE = 0
-            dE = -2 * Calculate_Energy(i, j, Copy_Ene_mat)
+            dE = -2 * Fun_Aged_Network.Calculate_Energy(i, j, Copy_Ene_mat)
             if 0 < dE:
 
                 Energy_Adj[i, j] = -Energy_Adj[i, j]
@@ -198,8 +173,13 @@ def Mainfunc(Node,age,iterate,ensemble,std):
             #     Age_Imshow.append(Age_adj)
             #     Age_Counter += 1
 
-    return Time, Mat_Energy, Age_adj   
-    # Age_Imshow
+            Mean_Age.append(np.mean(Age_adj)/sc.special.comb(len(Energy_Adj),2))
+            Std_Age.append(np.std(Age_adj)/sc.special.comb(len(Energy_Adj),2))
+            Time_Itrate.append(t/sc.special.comb(len(Energy_Adj),2))
+           
+
+    return Time, Mat_Energy, Age_adj,Age_Imshow,Std_Age,Mean_Age,Time_Itrate   
+
 
 
 Fun_Test = Mainfunc(32,10000,6000,1,10)
