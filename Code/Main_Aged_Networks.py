@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import multiprocessing as mp
 import matplotlib.patches as mpatches
 import Fun_Aged_Network as Fun_Aged_Network
+import multiprocessing as mp
 # '''Variable'''
 
 Set_Age = 100
@@ -18,7 +19,7 @@ ensemble = 1
 # '''Main Function'''
 
 
-def Mainfunc(Node,age,iterate,ensemble,std):
+def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
     Node = Node
     ensemble = ensemble
@@ -129,8 +130,8 @@ def Mainfunc(Node,age,iterate,ensemble,std):
                             dE += newE - oldE
 
                 Eold += dE
-                T += 1
-                Time.append(T)
+                # T += 1
+                # Time.append(T)
                 Mat_Energy.append(Eold)
 
 
@@ -146,7 +147,7 @@ def Mainfunc(Node,age,iterate,ensemble,std):
 
             dE = 0
             dE = -2 * Fun_Aged_Network.Calculate_Energy(i, j, Copy_Ene_mat)
-            if 0 < dE:
+            if 0 <= dE:
 
                 Energy_Adj[i, j] = -Energy_Adj[i, j]
                 Energy_Adj[j, i] = -Energy_Adj[j, i]
@@ -177,13 +178,34 @@ def Mainfunc(Node,age,iterate,ensemble,std):
             Std_Age.append(np.std(Age_adj)/sc.special.comb(len(Energy_Adj),2))
             Time_Itrate.append(t/sc.special.comb(len(Energy_Adj),2))
            
+    np.savetxt(str(thread_no) + '.txt', Std_Age)
+    #return Time, Mat_Energy, Age_adj,Age_Imshow,Std_Age,Mean_Age,Time_Itrate   
 
-    return Time, Mat_Energy, Age_adj,Age_Imshow,Std_Age,Mean_Age,Time_Itrate   
 
 
+# Fun_Test = Mainfunc(32,10000,6000,1,10)
+# plt.plot(Fun_Test[0],Fun_Test[1])
+# plt.show()
 
-Fun_Test = Mainfunc(32,10000,6000,1,10)
-plt.plot(Fun_Test[0],Fun_Test[1])
-plt.show()
 
+Node = 32
+age = 100000
+iterate = 6000
+ensemble = 1
+std = 10
+
+if __name__ == "__main__":
+    thread_no = 0
+    for i in range(4):
+        processes = []
+        for j in range(4):
+            processes.append(mp.Process(target=Mainfunc, args=(thread_no,Node,age,iterate,ensemble,std)))
+            thread_no += 1
+        for p in processes:
+            p.start()
+        for p in processes:
+            p.join()
+
+    # Time = np.arange(1, eter+1, 1)
+    # np.savetxt('Time.txt',np.log(Time) )
 
