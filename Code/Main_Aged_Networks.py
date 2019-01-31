@@ -14,7 +14,7 @@ import multiprocessing as mp
 # '''Variable'''
 
 Set_Age = 100
-ensemble = 1
+#ensemble = 1
 
 # '''Main Function'''
 
@@ -22,7 +22,7 @@ ensemble = 1
 def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
     Node = Node
-    ensemble = ensemble
+    Ensemble = ensemble
     age = age
     iterate = iterate
     Aging = np.ones((Node,Node),dtype=int)
@@ -33,11 +33,17 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
     '''Main'''
 
+    Age_adj_ensemble = []
+    Energy_Adj_ensemble = []
+    Mean_Age_ensemble = []
+    Std_Age_ensenble = []
+    Time_Itrate_ensemble = []
+
 
     #ensumble
 
-    for ens in range(ensemble):
-
+    for ens in range(Ensemble):
+        print(ens)
 
         T = 0                                                 #Step
         Time = []                                             #List Step
@@ -177,8 +183,20 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
             Mean_Age.append(np.mean(Age_adj)/sc.special.comb(len(Energy_Adj),2))
             Std_Age.append(np.std(Age_adj)/sc.special.comb(len(Energy_Adj),2))
             Time_Itrate.append(t/sc.special.comb(len(Energy_Adj),2))
-           
-    np.savetxt(str(thread_no) + '.txt', Std_Age)
+
+        Age_adj_ensemble.append(Age_adj)
+        Energy_Adj_ensemble.append(Energy_Adj)
+
+
+        Mean_Age_ensemble.append(Mean_Age)
+        Std_Age_ensenble.append(Set_Age)
+        #Time_Itrate_ensemble.append(Time_Itrate)
+
+
+
+
+    np.savetxt('STD'+ str(thread_no)+str(ens) + '.txt', Std_Age_ensenble)
+    np.savetxt('LifeTime'+str(thread_no)+'.txt',Time_Itrate)
     #return Time, Mat_Energy, Age_adj,Age_Imshow,Std_Age,Mean_Age,Time_Itrate   
 
 
@@ -191,7 +209,7 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 Node = 32
 age = 100000
 iterate = 6000
-ensemble = 1
+ensemble = 3
 std = 10
 
 if __name__ == "__main__":
@@ -209,3 +227,10 @@ if __name__ == "__main__":
     # Time = np.arange(1, eter+1, 1)
     # np.savetxt('Time.txt',np.log(Time) )
 
+
+import time
+
+start = time.time()
+print("hello")
+end = time.time()
+print(end - start)
