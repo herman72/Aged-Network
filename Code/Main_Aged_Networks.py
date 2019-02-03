@@ -11,13 +11,15 @@ import multiprocessing as mp
 import matplotlib.patches as mpatches
 import Fun_Aged_Network as Fun_Aged_Network
 import multiprocessing as mp
+import os.path
 # '''Variable'''
 
-Set_Age = 100
+Path = '/home/mohammad/Documents/Thesis/Aged-Network/Code'
+
+#Set_Age = 100
 #ensemble = 1
 
 # '''Main Function'''
-
 
 def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
@@ -43,7 +45,7 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
     #ensumble
 
     for ens in range(Ensemble):
-        print(ens)
+        #print(ens)
 
         T = 0                                                 #Step
         Time = []                                             #List Step
@@ -182,6 +184,8 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
             Mean_Age.append(np.mean(Age_adj)/sc.special.comb(len(Energy_Adj),2))
             Std_Age.append(np.std(Age_adj)/sc.special.comb(len(Energy_Adj),2))
+            #print(Std_Age)
+
             Time_Itrate.append(t/sc.special.comb(len(Energy_Adj),2))
 
         Age_adj_ensemble.append(Age_adj)
@@ -189,14 +193,15 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
 
         Mean_Age_ensemble.append(Mean_Age)
-        Std_Age_ensenble.append(Set_Age)
+        #print(Std_Age)
+        Std_Age_ensenble.append(Std_Age)
         #Time_Itrate_ensemble.append(Time_Itrate)
 
 
 
 
-    np.savetxt('STD'+ str(thread_no)+str(ens) + '.txt', Std_Age_ensenble)
-    np.savetxt('LifeTime'+str(thread_no)+'.txt',Time_Itrate)
+    np.savetxt('STD100'+ str(thread_no)+str(ens) + '.txt', Std_Age_ensenble)
+    #np.savetxt('LifeTime'+str(thread_no)+'.txt',Time_Itrate)
     #return Time, Mat_Energy, Age_adj,Age_Imshow,Std_Age,Mean_Age,Time_Itrate   
 
 
@@ -207,7 +212,7 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
 
 Node = 32
-age = 100000
+age = 100
 iterate = 6000
 ensemble = 1
 std = 10
