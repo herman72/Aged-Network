@@ -209,7 +209,7 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 Node = 32
 age = 100000
 iterate = 6000
-ensemble = 3
+ensemble = 1
 std = 10
 
 if __name__ == "__main__":
