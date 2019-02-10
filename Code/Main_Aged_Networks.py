@@ -1,6 +1,7 @@
 ## Created By: Mohammad Sherafati, 2Dec 2018, m.sherafati7@gmail.com
 
 #  '''Import Package'''
+
 import scipy as sc
 from scipy.misc import comb
 import seaborn as sns
@@ -12,6 +13,7 @@ import matplotlib.patches as mpatches
 import Fun_Aged_Network as Fun_Aged_Network
 import multiprocessing as mp
 import os.path
+
 # '''Variable'''
 
 Path = '/home/mohammad/Documents/Thesis/Aged-Network/Code'
@@ -200,7 +202,7 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
 
 
-    np.savetxt('STD100'+ str(thread_no)+str(ens) + '.txt', Std_Age_ensenble)
+    np.savetxt('STD100'+ str(thread_no)+str(ens) + '.txt', Mean_Age_ensemble)
     #np.savetxt('LifeTime'+str(thread_no)+'.txt',Time_Itrate)
     #return Time, Mat_Energy, Age_adj,Age_Imshow,Std_Age,Mean_Age,Time_Itrate   
 
