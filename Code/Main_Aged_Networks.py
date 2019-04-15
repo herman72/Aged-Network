@@ -56,7 +56,7 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
         Age_adj = np.zeros((Node, Node), dtype=int)           #Age Matrix
         Eold = 0
 
-        Age_Imshow = []
+        #Age_Imshow = []
 
 
 
@@ -202,7 +202,7 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
 
 
-    np.savetxt('STD'+ str(thread_no)+str(ens) + '.txt', Std_Age_ensenble)
+    np.savetxt('/home/mohammad/Documents/Thesis/Aged-Network/Code/Output100/'+'STD100'+ str(thread_no)+str(ens) + '.txt', Std_Age_ensenble)
     #np.savetxt('LifeTime'+str(thread_no)+'.txt',Time_Itrate)
     #return Time, Mat_Energy, Age_adj,Age_Imshow,Std_Age,Mean_Age,Time_Itrate   
 
@@ -214,7 +214,7 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
 
 Node = 32
-age = 10000
+age = 100
 iterate = 6000
 ensemble = 1
 std = 10
