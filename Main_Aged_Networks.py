@@ -23,7 +23,7 @@ Path = '/home/mohammad/Documents/Thesis/Aged-Network/Code'
 
 # '''Main Function'''
 
-def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
+def Mainfunc(Node,age,iterate,ensemble,std):
 
     Node = Node
     Ensemble = ensemble
@@ -142,7 +142,7 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
                 Eold += dE
                 # T += 1
                 # Time.append(T)
-                #Mat_Energy.append(Eold)
+                Mat_Energy.append(Eold)
 
 
 
@@ -202,9 +202,9 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 
 
 
-    np.savetxt('/home/mohammad/Documents/Thesis/Aged-Network/Code/Output100/'+'STD100'+ str(thread_no)+str(ens) + '.txt', Mean_Age_ensemble)
+    #np.savetxt('/home/mohammad/Documents/Thesis/Aged-Network/Code/Output100/'+'STD100'+ str(thread_no)+str(ens) + '.txt', Mean_Age_ensemble)
     # np.savetxt('LifeTime'+str(thread_no)+'.txt',Time_Itrate)
-    #return Time, Mat_Energy, Age_adj,Age_Imshow,Std_Age,Mean_Age,Time_Itrate   
+    return Time, Mat_Energy, Age_adj,Age_Imshow,Std_Age,Mean_Age,Time_Itrate   
 
 
 
@@ -213,23 +213,34 @@ def Mainfunc(thread_no,Node,age,iterate,ensemble,std):
 # plt.show()
 
 
-Node = 128
-age = 2700
-iterate = 75000
-ensemble = 1
-std = 10
+#Node = 128
+#age = 2700
+#iterate = 75000
+#ensemble = 1
+#std = 10
 
-if __name__ == "__main__":
-    thread_no = 0
-    for i in range(4):
-        processes = []
-        for j in range(4):
-            processes.append(mp.Process(target=Mainfunc, args=(thread_no,Node,age,iterate,ensemble,std)))
-            thread_no += 1
-        for p in processes:
-            p.start()
-        for p in processes:
-            p.join()
+Mean_Ene = []
+Thresh = []
+#thread_no,Node,age,iterate,ensemble,std
+for i in range(1,121,1):
+    Fun_Test1 = Mainfunc(20,i,5000,1,1)
+    Mean_Ene.append(np.mean(Fun_Test1[1]))
+    Thresh.append(i/sc.special.comb(20,2))
+
+np.savetxt('T20.txt',Thresh)
+np.savetxt('E20.txt',Mean_Ene)
+
+#if __name__ == "__main__":
+#    thread_no = 0
+#    for i in range(4):
+#        processes = []
+#        for j in range(4):
+#            processes.append(mp.Process(target=Mainfunc, args=(thread_no,Node,age,iterate,ensemble,std)))
+#            thread_no += 1
+#        for p in processes:
+#            p.start()
+#        for p in processes:
+#            p.join()
 
     # Time = np.arange(1, eter+1, 1)
     # np.savetxt('Time.txt',np.log(Time) )
