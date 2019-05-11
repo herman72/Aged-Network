@@ -8,4 +8,4 @@
 
 cd $PBS_O_WORKDIR
 
-python3 CodeForCluster32.py
+python3 CodeForCluster.py
